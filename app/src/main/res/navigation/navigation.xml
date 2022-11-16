@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/navigation"
+    app:startDestination="@id/welcomePage">
+
+    <fragment
+        android:id="@+id/welcomePage"
+        android:name="com.example.laundrymanager.Fragments.WelcomePage"
+        android:label="fragment_welcome_page"
+        tools:layout="@layout/fragment_welcome_page" >
+        <action
+            android:id="@+id/action_welcomePage_to_signIn3"
+            app:destination="@id/signIn3" />
+        <action
+            android:id="@+id/action_welcomePage_to_signUp2"
+            app:destination="@id/navigation2" />
+    </fragment>
+    <fragment
+        android:id="@+id/signIn3"
+        android:name="com.example.laundrymanager.Fragments.SignIn"
+        android:label="fragment_sign_in"
+        tools:layout="@layout/fragment_sign_in" />
+    <fragment
+        android:id="@+id/typeChoice"
+        android:name="com.example.laundrymanager.Fragments.TypeChoice"
+        android:label="fragment_type_choice"
+        tools:layout="@layout/fragment_type_choice" />
+    <navigation android:id="@+id/navigation2"
+        app:startDestination="@id/signUp2">
+        <fragment
+            android:id="@+id/signUp2"
+            android:name="com.example.laundrymanager.Fragments.SignUp"
+            android:label="fragment_sign_up"
+            tools:layout="@layout/fragment_sign_up">
+            <action
+                android:id="@+id/action_signUp2_to_typeChoice"
+                app:destination="@id/typeChoice" />
+        </fragment>
+    </navigation>
+</navigation>

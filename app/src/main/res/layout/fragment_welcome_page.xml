@@ -9,7 +9,7 @@
     tools:context=".Fragments.WelcomePage">
 
     <Button
-        android:id="@+id/signIn"
+        android:id="@+id/btnSignIn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="18dp"
@@ -17,7 +17,7 @@
         android:text="Sign In"/>
 
     <Button
-        android:id="@+id/signUp"
+        android:id="@+id/btnSignUp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="18dp"
