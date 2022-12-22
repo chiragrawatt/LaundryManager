@@ -6,6 +6,6 @@ import retrofit2.http.Query
 
 interface LaundryService {
 
-    @GET("/quotes")
-    suspend fun demoQuotes(@Query("page") page: Int) : Response<String>
+    @GET("/")
+    suspend fun demoQuotes() : Response<String>
 }

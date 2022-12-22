@@ -13,11 +13,12 @@ class APIRepository(private val laundryService: LaundryService) {
     val msg: LiveData<String>
     get() = _msg
 
-    suspend fun testURL(page: Int) {
+    suspend fun testURL() {
         val result: Response<String>
         try {
-            result = laundryService.demoQuotes(page)
+            result = laundryService.demoQuotes()
             if(result.body() != null) {
+                Log.d("testing", "got it")
                 _msg.postValue(result.body())
             }
         }catch(ex: Exception) {

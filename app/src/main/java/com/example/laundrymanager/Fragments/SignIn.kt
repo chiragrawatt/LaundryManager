@@ -34,7 +34,7 @@ class SignIn : Fragment() {
         apiViewModel = ViewModelProvider(this, APIViewModelFactory(repository)).get(APIViewModel::class.java)
 
         apiViewModel.msg.observe(viewLifecycleOwner, Observer{
-            Log.d("testing", it.toString())
+            showSnackBar(it.toString())
         })
 
         return binding.root

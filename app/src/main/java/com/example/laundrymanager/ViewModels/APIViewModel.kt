@@ -12,7 +12,7 @@ class APIViewModel(private val repository: APIRepository) : ViewModel() {
     init {
         GlobalScope.launch(Dispatchers.IO) {
             viewModelScope.launch(Dispatchers.IO) {
-                repository.testURL(1)
+                repository.testURL()
             }
         }
     }
