@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import com.example.laundrymanager.R
 import com.example.laundrymanager.Repository.APIRepository
 import com.example.laundrymanager.Services.LaundryService
@@ -17,6 +18,8 @@ import com.example.laundrymanager.ViewModelFactory.APIViewModelFactory
 import com.example.laundrymanager.ViewModels.APIViewModel
 import com.example.laundrymanager.databinding.FragmentSignInBinding
 import com.google.android.material.snackbar.Snackbar
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import retrofit2.create
 
 class SignIn : Fragment() {
@@ -33,9 +36,20 @@ class SignIn : Fragment() {
 
         apiViewModel = ViewModelProvider(this, APIViewModelFactory(repository)).get(APIViewModel::class.java)
 
-        apiViewModel.msg.observe(viewLifecycleOwner, Observer{
-            showSnackBar(it.toString())
-        })
+        binding.btnSignIn.setOnClickListener {
+            val email = binding.edtEmail.text.toString()
+            val password = binding.edtPassword.text.toString()
+
+            lifecycleScope.launch(Dispatchers.IO) {
+                val userResponse = apiViewModel.signIn(email, password)
+
+                if(userResponse!=null) {
+                    showSnackBar(userResponse.response)
+                } else {
+                    showSnackBar("found null")
+                }
+            }
+        }
 
         return binding.root
     }
