@@ -24,7 +24,7 @@ class WelcomePage : Fragment() {
         }
 
         binding.btnSignUp.setOnClickListener {
-            Navigation.findNavController(it).navigate(R.id.action_welcomePage_to_signUp2)
+            Navigation.findNavController(it).navigate(R.id.action_welcomePage_to_signUp)
         }
 
         return binding.root

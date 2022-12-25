@@ -7,13 +7,14 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
 import com.example.laundrymanager.Repository.DataStoreRepository
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class SessionViewModel(application: Application): AndroidViewModel(application) {
-
-    private val repository = DataStoreRepository.getInstance(application)
+@HiltViewModel
+class SessionViewModel @Inject constructor(private val repository: DataStoreRepository): ViewModel() {
 
     val currentUser = repository.getCurrentUser.asLiveData()
 

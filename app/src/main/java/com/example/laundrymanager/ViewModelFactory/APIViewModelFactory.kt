@@ -9,5 +9,4 @@ class APIViewModelFactory(private val repository: APIRepository) : ViewModelProv
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         return APIViewModel(repository) as T
     }
-
 }

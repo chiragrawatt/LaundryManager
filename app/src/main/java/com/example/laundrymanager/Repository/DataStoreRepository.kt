@@ -9,8 +9,10 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.map
 import java.io.IOException
+import javax.inject.Inject
 
-class DataStoreRepository private constructor(val context: Context) {
+
+class DataStoreRepository @Inject constructor(private val context: Context) {
 
     private val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = PREFERENCE_NAME)
 
@@ -34,20 +36,20 @@ class DataStoreRepository private constructor(val context: Context) {
         preferences[PreferencesKeys.userId] ?: "none"
     }
 
-    companion object {
-        @Volatile
-        private var INSTANCE: DataStoreRepository? = null
-
-        fun getInstance(context: Context): DataStoreRepository {
-            return INSTANCE ?: synchronized(this) {
-                INSTANCE?.let {
-                    return it
-                }
-
-                val instance = DataStoreRepository(context)
-                INSTANCE = instance
-                instance
-            }
-        }
-    }
+//    companion object {
+//        @Volatile
+//        private var INSTANCE: DataStoreRepository? = null
+//
+//        fun getInstance(context: Context): DataStoreRepository {
+//            return INSTANCE ?: synchronized(this) {
+//                INSTANCE?.let {
+//                    return it
+//                }
+//
+//                val instance = DataStoreRepository(context)
+//                INSTANCE = instance
+//                instance
+//            }
+//        }
+//    }
 }

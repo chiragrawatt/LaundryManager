@@ -7,22 +7,27 @@ import com.example.laundrymanager.Models.User
 import com.example.laundrymanager.Models.UserResponse
 import com.example.laundrymanager.Services.LaundryService
 import retrofit2.Response
+import javax.inject.Inject
+import javax.inject.Singleton
 
-class APIRepository(private val laundryService: LaundryService) {
-
+class APIRepository constructor(private val laundryService: LaundryService) {
 //    private val _msg = MutableLiveData<String>("ello its me gmd")
-//
 //    val msg: LiveData<String>
 //    get() = _msg
 
+    private val _userResponse = MutableLiveData<UserResponse>()
 
-    suspend fun signIn(email: String, password: String) : UserResponse? {
-        return try {
+    val userResponse: LiveData<UserResponse>
+    get() = _userResponse
+
+    suspend fun signIn(email: String, password: String) {
+        try {
             val result = laundryService.signIn(User("", email, "", password, 0, "", 0))
-            UserResponse(result.body()!!.response, result.body()!!.user)
+            if(result?.body() != null) {
+                _userResponse.postValue(result.body())
+            }
         }catch(ex: Exception) {
             Log.d("testing", ex.toString())
-            null
         }
     }
 
