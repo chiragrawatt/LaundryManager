@@ -20,7 +20,7 @@ class WelcomePage : Fragment() {
         binding = FragmentWelcomePageBinding.inflate(layoutInflater)
 
         binding.btnSignIn.setOnClickListener {
-            Navigation.findNavController(it).navigate(R.id.action_welcomePage_to_signIn3)
+            Navigation.findNavController(it).navigate(R.id.action_welcomePage_to_signIn)
         }
 
         binding.btnSignUp.setOnClickListener {

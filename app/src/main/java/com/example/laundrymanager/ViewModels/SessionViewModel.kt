@@ -17,8 +17,9 @@ import javax.inject.Inject
 class SessionViewModel @Inject constructor(private val repository: DataStoreRepository): ViewModel() {
 
     val currentUser = repository.getCurrentUser.asLiveData()
+    val currentUserId = repository.getCurrentUserType.asLiveData()
 
-    fun setNewUser(userId: String) = viewModelScope.launch(Dispatchers.IO) {
-        repository.setNewUser(userId)
+    fun setNewUser(userId: String, userType: Int) = viewModelScope.launch(Dispatchers.IO) {
+        repository.setNewUser(userId, userType)
     }
 }

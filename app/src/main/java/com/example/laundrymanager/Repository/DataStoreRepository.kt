@@ -18,11 +18,13 @@ class DataStoreRepository @Inject constructor(private val context: Context) {
 
     private object PreferencesKeys {
         val userId = stringPreferencesKey("userId")
+        val userType = intPreferencesKey("userType")
     }
 
-    suspend fun setNewUser(newUserId: String) {
+    suspend fun setNewUser(newUserId: String, newUserType: Int) {
         context.dataStore.edit {
             it[PreferencesKeys.userId] = newUserId
+            it[PreferencesKeys.userType] = newUserType
         }
     }
 
@@ -36,20 +38,13 @@ class DataStoreRepository @Inject constructor(private val context: Context) {
         preferences[PreferencesKeys.userId] ?: "none"
     }
 
-//    companion object {
-//        @Volatile
-//        private var INSTANCE: DataStoreRepository? = null
-//
-//        fun getInstance(context: Context): DataStoreRepository {
-//            return INSTANCE ?: synchronized(this) {
-//                INSTANCE?.let {
-//                    return it
-//                }
-//
-//                val instance = DataStoreRepository(context)
-//                INSTANCE = instance
-//                instance
-//            }
-//        }
-//    }
+    val getCurrentUserType: Flow<Int> = context.dataStore.data.catch { exception ->
+        if(exception is IOException) {
+            emit(emptyPreferences())
+        } else {
+            throw exception
+        }
+    }.map { preferences ->
+        preferences[PreferencesKeys.userType] ?: -1
+    }
 }

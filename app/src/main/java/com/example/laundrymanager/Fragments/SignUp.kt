@@ -5,14 +5,20 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.Navigation
 import com.example.laundrymanager.R
+import com.example.laundrymanager.databinding.FragmentSignUpBinding
 
 
 class SignUp : Fragment() {
 
+    private lateinit var binding: FragmentSignUpBinding
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_sign_up, container, false)
+
+        binding = FragmentSignUpBinding.inflate(layoutInflater)
+
+        return binding.root
     }
 
 
