@@ -30,7 +30,7 @@ class HomePage : Fragment() {
                     binding.btnPerformAction.text = "Take Order"
                 }
             } else {
-                //findNavController().navigate(R.id.action_homePage_to_welcomePage)
+                findNavController().navigate(R.id.action_homePage_to_welcomePage)
             }
         })
 
@@ -39,7 +39,7 @@ class HomePage : Fragment() {
         }
 
         binding.btnViewOrders.setOnClickListener {
-            
+            findNavController().navigate(R.id.action_homePage_to_orders)
         }
 
         binding.btnLogOut.setOnClickListener {

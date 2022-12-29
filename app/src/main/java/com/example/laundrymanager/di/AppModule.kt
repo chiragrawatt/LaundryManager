@@ -17,7 +17,7 @@ import javax.inject.Singleton
 @Module
 @InstallIn(SingletonComponent::class)
 object AppModule {
-    private const val URL = "https://b685-49-43-154-92.in.ngrok.io"
+    private const val URL = "http://192.168.1.156:9000/"
 
     @Provides
     @Singleton

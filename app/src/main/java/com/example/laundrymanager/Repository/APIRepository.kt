@@ -4,6 +4,7 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.laundrymanager.Models.User
+import com.example.laundrymanager.Models.UserRequest
 import com.example.laundrymanager.Models.UserResponse
 import com.example.laundrymanager.Services.LaundryService
 import retrofit2.Response
@@ -16,9 +17,9 @@ class APIRepository constructor(private val laundryService: LaundryService) {
     val userResponse: LiveData<UserResponse>
     get() = _userResponse
 
-    suspend fun signIn(email: String, password: String) {
+    suspend fun signIn(userRequest: UserRequest) {
         try {
-            val result = laundryService.signIn(User("", email, "", password, 0, "", 0))
+            val result = laundryService.signIn(userRequest)
             if(result?.body() != null) {
                 _userResponse.postValue(result.body())
             }

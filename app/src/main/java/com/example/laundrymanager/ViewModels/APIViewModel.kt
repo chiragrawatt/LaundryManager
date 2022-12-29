@@ -5,6 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.laundrymanager.Models.UserRequest
 import com.example.laundrymanager.Models.UserResponse
 import com.example.laundrymanager.Repository.APIRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -22,9 +23,9 @@ class APIViewModel @Inject constructor(private val repository: APIRepository) : 
     val userResponse: LiveData<UserResponse>
     get() = _userResponse
 
-    fun signIn(email: String, password: String) {
+    fun signIn(userRequest: UserRequest) {
         viewModelScope.launch(Dispatchers.IO) {
-            repository.signIn(email, password)
+            repository.signIn(userRequest)
         }
     }
 }

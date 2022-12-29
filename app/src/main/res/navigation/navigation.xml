@@ -57,5 +57,13 @@
             app:destination="@id/welcomePage"
             app:popUpTo="@id/homePage"
             app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_homePage_to_orders"
+            app:destination="@id/orders" />
     </fragment>
+    <fragment
+        android:id="@+id/orders"
+        android:name="com.example.laundrymanager.Fragments.Orders"
+        android:label="fragment_orders"
+        tools:layout="@layout/fragment_orders" />
 </navigation>

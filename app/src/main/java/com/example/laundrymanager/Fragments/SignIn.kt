@@ -11,6 +11,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
+import com.example.laundrymanager.Models.UserRequest
 import com.example.laundrymanager.R
 import com.example.laundrymanager.ViewModels.APIViewModel
 import com.example.laundrymanager.ViewModels.SessionViewModel
@@ -32,8 +33,7 @@ class SignIn : Fragment() {
         binding.btnSignIn.setOnClickListener {
             val email = binding.edtEmail.text.toString()
             val password = binding.edtPassword.text.toString()
-            apiViewModel.signIn(email, password)
-            findNavController().navigate(R.id.action_signIn_to_homePage)
+            apiViewModel.signIn(UserRequest(email, password))
         }
 
         apiViewModel.userResponse.observe(viewLifecycleOwner, Observer {
@@ -41,9 +41,9 @@ class SignIn : Fragment() {
                 sessionViewModel.setNewUser(it.user.userid, it.user.type)
                 sessionViewModel.currentUser.observe(viewLifecycleOwner, Observer {
                     Log.d("testing", "New user: $it")
-//                    if(it!="none") {
-//                        findNavController().navigate(R.id.action_signIn_to_homePage)
-//                    }
+                    if(it!="none") {
+                        findNavController().navigate(R.id.action_signIn_to_homePage)
+                    }
                 })
             } else {
                 showSnackBar(it.response)
