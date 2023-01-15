@@ -8,6 +8,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.laundrymanager.Models.UserRequest
 import com.example.laundrymanager.Models.UserResponse
 import com.example.laundrymanager.Repository.APIRepository
+import com.example.laundrymanager.Utils.NetworkResult
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
@@ -18,10 +19,8 @@ import javax.inject.Inject
 @HiltViewModel
 class APIViewModel @Inject constructor(private val repository: APIRepository) : ViewModel() {
 
-    private val _userResponse = repository.userResponse
-
-    val userResponse: LiveData<UserResponse>
-    get() = _userResponse
+    val userResponse: LiveData<NetworkResult<UserResponse>>
+    get() = repository.userResponse
 
     fun signIn(userRequest: UserRequest) {
         viewModelScope.launch(Dispatchers.IO) {

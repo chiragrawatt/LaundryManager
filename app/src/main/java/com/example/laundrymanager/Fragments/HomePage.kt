@@ -22,7 +22,7 @@ class HomePage : Fragment() {
         binding = FragmentHomePageBinding.inflate(layoutInflater)
 
         sessionViewModel.currentUserId.observe(viewLifecycleOwner, Observer {
-            Log.d("testingd", "Type: $it")
+            Log.d("testingHomePage", "Type: $it")
             if(it!=-1) {
                 if(it==0) {
                     binding.btnPerformAction.text = "Place Order"

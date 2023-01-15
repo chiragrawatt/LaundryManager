@@ -13,6 +13,7 @@ import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
 import com.example.laundrymanager.Models.UserRequest
 import com.example.laundrymanager.R
+import com.example.laundrymanager.Utils.NetworkResult
 import com.example.laundrymanager.ViewModels.APIViewModel
 import com.example.laundrymanager.ViewModels.SessionViewModel
 import com.example.laundrymanager.databinding.FragmentSignInBinding
@@ -36,26 +37,37 @@ class SignIn : Fragment() {
             apiViewModel.signIn(UserRequest(email, password))
         }
 
-        apiViewModel.userResponse.observe(viewLifecycleOwner, Observer {
-            if(it.response=="success") {
-                sessionViewModel.setNewUser(it.user.userid, it.user.type)
-                sessionViewModel.currentUser.observe(viewLifecycleOwner, Observer {
-                    Log.d("testing", "New user: $it")
-                    if(it!="none") {
-                        findNavController().navigate(R.id.action_signIn_to_homePage)
-                    }
-                })
-            } else {
-                showSnackBar(it.response)
-            }
-        })
+        bindObserver()
 
         return binding.root
     }
 
-    fun showSnackBar(message: String) {
-        val snackbar: Snackbar = Snackbar.make(requireView(), message, Snackbar.LENGTH_SHORT)
-        snackbar.show()
+    private fun bindObserver() {
+        apiViewModel.userResponse.observe(viewLifecycleOwner, Observer {
+            try {
+                when(it) {
+                    is NetworkResult.Success -> {
+                        sessionViewModel.setNewUser(it.data!!.user.userid, it.data.user.type)
+                        Log.d("testingSignIn", "New user: ${it.data.user.userid}")
+                        findNavController().navigate(R.id.action_signIn_to_homePage)
+                    }
+                    is NetworkResult.Error -> {
+                        Log.d("testingSignIn", "Error msg: ${it.message}")
+                        showSnackBar(it.message!!)
+                    }
+                    is NetworkResult.Loading -> {
+
+                    }
+                }
+            } catch (ex: Exception) {
+                Log.d("testingSignIn", ex.toString())
+            }
+        })
+    }
+
+    private fun showSnackBar(message: String) {
+        val snackBar: Snackbar = Snackbar.make(requireView(), message, Snackbar.LENGTH_SHORT)
+        snackBar.show()
     }
 
 }

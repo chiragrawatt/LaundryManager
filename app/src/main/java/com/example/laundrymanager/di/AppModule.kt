@@ -17,7 +17,7 @@ import javax.inject.Singleton
 @Module
 @InstallIn(SingletonComponent::class)
 object AppModule {
-    private const val URL = "http://192.168.1.156:9000/"
+    private const val URL = "http://10.7.221.166:9000/"
 
     @Provides
     @Singleton
@@ -29,7 +29,6 @@ object AppModule {
     }
 
     @Provides
-    @Singleton
     fun provideLaundryAPIRepository(api: LaundryService) : APIRepository {
         return APIRepository(api)
     }
