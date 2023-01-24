@@ -2,12 +2,6 @@ package com.example.laundrymanager
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import androidx.activity.viewModels
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.Navigation
-import com.example.laundrymanager.ViewModels.APIViewModel
-import com.example.laundrymanager.ViewModels.SessionViewModel
 import com.example.laundrymanager.databinding.ActivityMainBinding
 import dagger.hilt.android.AndroidEntryPoint
 

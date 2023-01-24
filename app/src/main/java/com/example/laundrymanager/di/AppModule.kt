@@ -1,10 +1,9 @@
 package com.example.laundrymanager.di
 
 import android.content.Context
-import android.util.Log
 import com.example.laundrymanager.Repository.APIRepository
 import com.example.laundrymanager.Repository.DataStoreRepository
-import com.example.laundrymanager.Services.LaundryService
+import com.example.laundrymanager.Services.UserAPI
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -17,19 +16,19 @@ import javax.inject.Singleton
 @Module
 @InstallIn(SingletonComponent::class)
 object AppModule {
-    private const val URL = "http://10.7.221.166:9000/"
+    private const val URL = "http://10.1.179.143:9000/"
 
     @Provides
     @Singleton
-    fun provideLaundryServiceInterface() : LaundryService {
+    fun provideLaundryServiceInterface() : UserAPI {
         return Retrofit.Builder().baseUrl(URL)
             .addConverterFactory(GsonConverterFactory.create())
             .build()
-            .create(LaundryService::class.java)
+            .create(UserAPI::class.java)
     }
 
     @Provides
-    fun provideLaundryAPIRepository(api: LaundryService) : APIRepository {
+    fun provideLaundryAPIRepository(api: UserAPI) : APIRepository {
         return APIRepository(api)
     }
 

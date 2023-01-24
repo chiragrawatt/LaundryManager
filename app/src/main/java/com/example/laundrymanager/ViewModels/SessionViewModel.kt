@@ -16,10 +16,9 @@ import javax.inject.Inject
 @HiltViewModel
 class SessionViewModel @Inject constructor(private val repository: DataStoreRepository): ViewModel() {
 
-    val currentUser = repository.getCurrentUser.asLiveData()
-    val currentUserId = repository.getCurrentUserType.asLiveData()
+    val currentUserToken = repository.getCurrentUserToken.asLiveData()
 
-    fun setNewUser(userId: String, userType: Int) = viewModelScope.launch(Dispatchers.IO) {
-        repository.setNewUser(userId, userType)
+    fun setUserToken(token: String) = viewModelScope.launch(Dispatchers.IO) {
+        repository.setNewUserToken(token)
     }
 }

@@ -25,8 +25,8 @@ class WelcomePage : Fragment() {
     ): View? {
         binding = FragmentWelcomePageBinding.inflate(layoutInflater)
 
-        sessionViewModel.currentUser.observe(viewLifecycleOwner, Observer {
-            Log.d("testinghome", "UserID $it")
+        sessionViewModel.currentUserToken.observe(viewLifecycleOwner, Observer {
+            Log.d("testingHome", "UserToken $it")
             if(it!="none") {
                 findNavController().navigate(R.id.action_welcomePage_to_homePage)
             }

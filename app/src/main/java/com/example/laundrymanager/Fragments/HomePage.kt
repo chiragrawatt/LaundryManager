@@ -21,20 +21,14 @@ class HomePage : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         binding = FragmentHomePageBinding.inflate(layoutInflater)
 
-        sessionViewModel.currentUserId.observe(viewLifecycleOwner, Observer {
-            Log.d("testingHomePage", "Type: $it")
-            if(it!=-1) {
-                if(it==0) {
-                    binding.btnPerformAction.text = "Place Order"
-                } else {
-                    binding.btnPerformAction.text = "Take Order"
-                }
-            } else {
+        sessionViewModel.currentUserToken.observe(viewLifecycleOwner, Observer {
+            Log.d("testingHomePage", "Token: $it")
+            if(it=="none") {
                 findNavController().navigate(R.id.action_homePage_to_welcomePage)
             }
         })
 
-        binding.btnPerformAction.setOnClickListener {
+        binding.btnPlaceOrder.setOnClickListener {
 
         }
 
@@ -43,7 +37,7 @@ class HomePage : Fragment() {
         }
 
         binding.btnLogOut.setOnClickListener {
-            sessionViewModel.setNewUser("none", -1)
+            sessionViewModel.setUserToken("none")
             findNavController().navigate(R.id.action_homePage_to_welcomePage)
         }
 

@@ -8,25 +8,25 @@
     tools:context=".Fragments.HomePage">
 
     <Button
-        android:id="@+id/btnPerformAction"
+        android:id="@+id/btnPlaceOrder"
         android:layout_width="match_parent"
         android:layout_height="64dp"
         android:layout_margin="16dp"
-        android:text="Perform Action"/>
+        android:text="Place Order"/>
     
     <Button
         android:id="@+id/btnViewOrders"
         android:layout_width="match_parent"
         android:layout_height="64dp"
         android:layout_margin="16dp"
-        android:text="View Orders"/>
+        android:text="@string/view_orders"/>
 
     <Button
         android:id="@+id/btnLogOut"
         android:layout_width="match_parent"
         android:layout_height="64dp"
         android:layout_margin="16dp"
-        android:text="Log Out"/>
+        android:text="@string/log_out"/>
 
 
 </LinearLayout>

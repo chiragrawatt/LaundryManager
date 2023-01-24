@@ -17,7 +17,7 @@ import retrofit2.Response
 import javax.inject.Inject
 
 @HiltViewModel
-class APIViewModel @Inject constructor(private val repository: APIRepository) : ViewModel() {
+class AuthenticationViewModel @Inject constructor(private val repository: APIRepository) : ViewModel() {
 
     val userResponse: LiveData<NetworkResult<UserResponse>>
     get() = repository.userResponse
