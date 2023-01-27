@@ -15,18 +15,22 @@ import androidx.navigation.fragment.findNavController
 import com.example.laundrymanager.Models.UserRequest
 import com.example.laundrymanager.R
 import com.example.laundrymanager.Utils.NetworkResult
+import com.example.laundrymanager.Utils.TokenManager
 import com.example.laundrymanager.ViewModels.AuthenticationViewModel
 import com.example.laundrymanager.ViewModels.SessionViewModel
 import com.example.laundrymanager.databinding.FragmentSignInBinding
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class SignIn : Fragment() {
 
     private lateinit var binding: FragmentSignInBinding
     private val authenticationViewModel : AuthenticationViewModel by viewModels()
-    private val sessionViewModel: SessionViewModel by activityViewModels()
+    //private val sessionViewModel: SessionViewModel by activityViewModels()
+    @Inject
+    lateinit var tokenManager: TokenManager
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 
@@ -64,7 +68,7 @@ class SignIn : Fragment() {
             try {
                 when(it) {
                     is NetworkResult.Success -> {
-                        sessionViewModel.setUserToken(it.data!!.token)
+                        tokenManager.saveToken(it.data!!.token)
                         Log.d("testingSignIn", "New user token: ${it.data.token}")
                         findNavController().navigate(R.id.action_signIn_to_homePage)
                     }

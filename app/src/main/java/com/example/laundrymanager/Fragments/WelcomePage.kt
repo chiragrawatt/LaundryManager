@@ -11,13 +11,20 @@ import androidx.lifecycle.Observer
 import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
 import com.example.laundrymanager.R
+import com.example.laundrymanager.Utils.TokenManager
 import com.example.laundrymanager.ViewModels.SessionViewModel
 import com.example.laundrymanager.databinding.FragmentWelcomePageBinding
+import com.google.android.material.snackbar.Snackbar
+import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
+@AndroidEntryPoint
 class WelcomePage : Fragment() {
 
     private lateinit var binding: FragmentWelcomePageBinding
-    private val sessionViewModel : SessionViewModel by activityViewModels()
+    //private val sessionViewModel : SessionViewModel by activityViewModels()
+    @Inject
+    lateinit var tokenManager: TokenManager
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -25,12 +32,12 @@ class WelcomePage : Fragment() {
     ): View? {
         binding = FragmentWelcomePageBinding.inflate(layoutInflater)
 
-        sessionViewModel.currentUserToken.observe(viewLifecycleOwner, Observer {
-            Log.d("testingHome", "UserToken $it")
-            if(it!="none") {
-                findNavController().navigate(R.id.action_welcomePage_to_homePage)
-            }
-        })
+        if(tokenManager.getToken()!=null) {
+            findNavController().navigate(R.id.action_welcomePage_to_homePage)
+        } else {
+            Log.d("testing","Empty")
+        }
+
 
         binding.btnSignIn.setOnClickListener {
             Navigation.findNavController(it).navigate(R.id.action_welcomePage_to_signIn)
@@ -42,5 +49,4 @@ class WelcomePage : Fragment() {
 
         return binding.root
     }
-
 }
