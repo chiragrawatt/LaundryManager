@@ -1,5 +1,6 @@
 package com.example.laundrymanager.Services
 
+import android.util.Log
 import androidx.fragment.app.activityViewModels
 import com.example.laundrymanager.Repository.DataStoreRepository
 import com.example.laundrymanager.Utils.TokenManager
@@ -8,7 +9,7 @@ import okhttp3.Interceptor
 import okhttp3.Response
 import javax.inject.Inject
 
-class AuthInterceptor : Interceptor {
+class AuthInterceptor @Inject constructor(): Interceptor {
 
     @Inject lateinit var tokenManager: TokenManager
 
