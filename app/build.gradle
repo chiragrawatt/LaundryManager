@@ -10,7 +10,7 @@ android {
 
     defaultConfig {
         applicationId "com.example.laundrymanager"
-        minSdk 21
+        minSdk 24
         targetSdk 32
         versionCode 1
         versionName "1.0"
@@ -82,10 +82,17 @@ dependencies {
     // fragment ktx for viewmodel
     implementation 'androidx.fragment:fragment-ktx:1.5.5'
 
+    // QR code generator library
+    implementation 'com.google.zxing:core:3.4.1'
+
+    // QR code scanner library
+    implementation 'com.journeyapps:zxing-android-embedded:4.1.0'
+
     //Testing
     testImplementation('junit:junit:4.+')
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
+
 }
 
 kapt {

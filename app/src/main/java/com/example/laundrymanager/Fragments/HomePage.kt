@@ -13,6 +13,8 @@ import androidx.navigation.fragment.findNavController
 import com.example.laundrymanager.R
 import com.example.laundrymanager.Repository.DataStoreRepository
 import com.example.laundrymanager.Utils.TokenManager
+import com.example.laundrymanager.Utils.UserTypeManager
+import com.example.laundrymanager.Utils.Utilities
 import com.example.laundrymanager.ViewModels.SessionViewModel
 import com.example.laundrymanager.databinding.FragmentHomePageBinding
 import dagger.hilt.android.AndroidEntryPoint
@@ -25,10 +27,11 @@ import javax.inject.Inject
 class HomePage : Fragment() {
 
     private lateinit var binding: FragmentHomePageBinding
-    private val sessionViewModel: SessionViewModel by activityViewModels()
 
     @Inject
     lateinit var tokenManager: TokenManager
+    @Inject
+    lateinit var userTypeManager: UserTypeManager
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         binding = FragmentHomePageBinding.inflate(layoutInflater)
@@ -40,7 +43,16 @@ class HomePage : Fragment() {
         }
 
         binding.btnPlaceOrder.setOnClickListener {
+            val userType = userTypeManager.getUserType()
+            if(userType==null) {
+                findNavController().navigate(R.id.action_homePage_to_welcomePage)
+            } else {
+                if(!userType.toBoolean()) {
+                    findNavController().navigate(R.id.action_homePage_to_QRCodeGenerator)
+                } else {
 
+                }
+            }
         }
 
         binding.btnViewOrders.setOnClickListener {
@@ -49,6 +61,7 @@ class HomePage : Fragment() {
 
         binding.btnLogOut.setOnClickListener {
             tokenManager.removeToken()
+            userTypeManager.removeUserType()
             findNavController().navigate(R.id.action_homePage_to_welcomePage)
         }
 

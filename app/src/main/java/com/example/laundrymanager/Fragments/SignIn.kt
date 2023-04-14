@@ -16,6 +16,7 @@ import com.example.laundrymanager.Models.UserRequest
 import com.example.laundrymanager.R
 import com.example.laundrymanager.Utils.NetworkResult
 import com.example.laundrymanager.Utils.TokenManager
+import com.example.laundrymanager.Utils.UserTypeManager
 import com.example.laundrymanager.ViewModels.AuthenticationViewModel
 import com.example.laundrymanager.ViewModels.SessionViewModel
 import com.example.laundrymanager.databinding.FragmentSignInBinding
@@ -28,9 +29,10 @@ class SignIn : Fragment() {
 
     private lateinit var binding: FragmentSignInBinding
     private val authenticationViewModel : AuthenticationViewModel by viewModels()
-    //private val sessionViewModel: SessionViewModel by activityViewModels()
     @Inject
     lateinit var tokenManager: TokenManager
+    @Inject
+    lateinit var userTypeManager: UserTypeManager
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 
@@ -69,6 +71,7 @@ class SignIn : Fragment() {
                 when(it) {
                     is NetworkResult.Success -> {
                         tokenManager.saveToken(it.data!!.token)
+                        userTypeManager.saveUserType(it.data!!.user.type.toString())
                         Log.d("testingSignIn", "New user token: ${it.data.token}")
                         findNavController().navigate(R.id.action_signIn_to_homePage)
                     }

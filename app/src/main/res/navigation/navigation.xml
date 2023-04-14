@@ -60,10 +60,18 @@
         <action
             android:id="@+id/action_homePage_to_orders"
             app:destination="@id/orders" />
+        <action
+            android:id="@+id/action_homePage_to_QRCodeGenerator"
+            app:destination="@id/QRCodeGenerator" />
     </fragment>
     <fragment
         android:id="@+id/orders"
         android:name="com.example.laundrymanager.Fragments.Orders"
         android:label="fragment_orders"
         tools:layout="@layout/fragment_orders" />
+    <fragment
+        android:id="@+id/QRCodeGenerator"
+        android:name="com.example.laundrymanager.Fragments.QRCodeGenerator"
+        android:label="fragment_q_r_code_generator"
+        tools:layout="@layout/fragment_q_r_code_generator" />
 </navigation>
